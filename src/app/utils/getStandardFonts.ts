@@ -1,9 +1,4 @@
-type StandardFont = {
-  id: string;
-  fullName: string;
-};
-
-type StandardFonts = ReadonlyArray<StandardFont>;
+import { StandardFonts } from "../types";
 
 export const getStandardFonts = (): StandardFonts => {
   return [
