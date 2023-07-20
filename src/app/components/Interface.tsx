@@ -10,6 +10,7 @@ type InterfaceProps = {
 };
 
 const DEFAULT_GOOGLE_FONT = "Roboto";
+const DEFAULT_STANDARD_FONT = "Arial";
 
 export const Interface = (props: InterfaceProps) => {
   const { googleFonts, standardFonts } = props;
@@ -23,6 +24,10 @@ export const Interface = (props: InterfaceProps) => {
   const [fontWeight, setFontWeight] = useState("normal");
   const [letterSpacing, setLetterSpacing] = useState(0);
   const [wordSpacing, setWordSpacing] = useState(0);
+
+  const [fallbackFontName, setFallbackFontName] = useState(
+    DEFAULT_STANDARD_FONT
+  );
 
   const handleTextareaType = (
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -164,7 +169,10 @@ export const Interface = (props: InterfaceProps) => {
               </label>
             </div>
             <div className="w-2/4">
-              <select className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-slate-600">
+              <select
+                onChange={(e) => setFallbackFontName(e.target.value)}
+                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-slate-600"
+              >
                 {standardFonts.map((font) => {
                   return <option key={font.id}>{font.fullName}</option>;
                 })}
@@ -236,8 +244,22 @@ export const Interface = (props: InterfaceProps) => {
 
       <div className="text-left my-10">
         <h2 className="font-medium text-2xl">Preview</h2>
-        <div className="mt-4">
+        <div className="mt-4 relative">
           <div
+            className="absolute text-gray-500"
+            style={{
+              fontFamily: fallbackFontName,
+              fontSize: `${fontSize}px`,
+              lineHeight: `${lineHeight}px`,
+              fontWeight: fontWeight,
+              letterSpacing: `${letterSpacing}px`,
+              wordSpacing: `${wordSpacing}px`,
+            }}
+          >
+            {sampleText}
+          </div>
+          <div
+            className="absolute"
             style={{
               fontFamily: fontName,
               fontSize: `${fontSize}px`,

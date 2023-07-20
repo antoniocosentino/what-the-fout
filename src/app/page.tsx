@@ -31,7 +31,7 @@ export default async function Home() {
           <a
             className="underline text-teal-500 hover:text-teal-800"
             target="_blank"
-            href="https://github.com/antoniocosentino/what-the-fout/issues"
+            href="https://developer.chrome.com/blog/font-fallbacks/"
           >
             this article
           </a>
