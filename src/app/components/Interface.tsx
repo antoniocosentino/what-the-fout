@@ -56,6 +56,8 @@ export const Interface = (props: InterfaceProps) => {
 
   const [isInEditMode, setIsInEditMode] = useState(false);
 
+  const [overlapBalance, setOverlapBalance] = useState(50);
+
   const handleTextareaType = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -306,8 +308,25 @@ export const Interface = (props: InterfaceProps) => {
         </div>
       </div>
 
-      <div className="text-left mt-8">
-        <h2 className="font-medium text-2xl">Preview</h2>
+      <div className="text-left mt-8 flex justify-between">
+        <div>
+          <h2 className="font-medium text-2xl">Preview</h2>
+          <p className="text-xs text-slate-400">
+            Click on the preview area to edit the default text
+          </p>
+        </div>
+        <div>
+          <p className="text-sm font-bold">Preview balance</p>
+          <input
+            className="rounded-lg overflow-hidden appearance-none bg-gray-400 h-3 w-128"
+            type="range"
+            min="1"
+            max="100"
+            step="1"
+            defaultValue="50"
+            onChange={(e) => setOverlapBalance(parseInt(e.target.value))}
+          />
+        </div>
       </div>
 
       <div className="text-left mt-3 bg-slate-50 rounded p-4 pt-1 pb-8">
@@ -315,7 +334,7 @@ export const Interface = (props: InterfaceProps) => {
           {!isInEditMode && (
             <>
               <div
-                className="relative opacity-40"
+                className="relative"
                 style={{
                   fontFamily: `fallback for ${fontName}`,
                   fontSize: `${fontSize}px`,
@@ -323,6 +342,7 @@ export const Interface = (props: InterfaceProps) => {
                   fontWeight: fontWeight,
                   letterSpacing: `${letterSpacing}px`,
                   wordSpacing: `${wordSpacing}px`,
+                  opacity: `${overlapBalance}%`,
                 }}
               >
                 {sampleText}
@@ -337,6 +357,7 @@ export const Interface = (props: InterfaceProps) => {
                   fontWeight: fontWeight,
                   letterSpacing: `${letterSpacing}px`,
                   wordSpacing: `${wordSpacing}px`,
+                  opacity: `${100 - overlapBalance}%`,
                 }}
               >
                 {sampleText}
