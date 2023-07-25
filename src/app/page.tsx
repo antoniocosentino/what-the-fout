@@ -20,7 +20,7 @@ export default async function Home() {
   const googleFontResponse = await getGoogleFonts();
 
   return (
-    <main className="min-h-screen p-24 flex flex-column justify-center">
+    <main className="min-h-screen p-12 flex flex-column justify-center">
       <div className="z-10 w-full max-w-5xl text-center">
         <h1 className="font-medium text-5xl">What the FOUT!</h1>
         <p className="my-8 text-left">

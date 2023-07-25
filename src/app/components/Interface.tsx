@@ -1,8 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GoogleFonts, StandardFonts } from "../types";
 import { getDummyText } from "../utils/getDummyText";
 import { Helmet } from "react-helmet";
+import { useOutsideClick } from "../customHooks/useOutsideClick";
 
 type InterfaceProps = {
   googleFonts: GoogleFonts;
@@ -53,11 +54,30 @@ export const Interface = (props: InterfaceProps) => {
     DEFAULT_LINE_GAP_OVERRIDE
   );
 
+  const [isInEditMode, setIsInEditMode] = useState(false);
+
   const handleTextareaType = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setSampleText(event.target.value);
   };
+
+  const handleClickOutside = () => {
+    if (sampleText === "") {
+      setSampleText(getDummyText());
+      return;
+    }
+    setIsInEditMode(false);
+  };
+
+  const ref = useOutsideClick(handleClickOutside);
+
+  // putting the cursor in the textarea when clicking
+  useEffect(() => {
+    if (isInEditMode) {
+      ref.current?.focus();
+    }
+  }, [isInEditMode, ref]);
 
   return (
     <>
@@ -85,15 +105,6 @@ export const Interface = (props: InterfaceProps) => {
           },
         ]}
       />
-      <div className="text-left my-3">
-        <h2 className="font-medium text-2xl">Sample text</h2>
-        <textarea
-          className="w-full p-4 rounded my-2 focus:outline-none font-mono resize-none"
-          placeholder={getDummyText()}
-          onChange={handleTextareaType}
-        ></textarea>
-      </div>
-
       <div className="flex flex-row justify-between gap-4">
         <div className="bg-slate-50 basis-1/2 p-6 rounded shadow-lg">
           <h2 className="font-medium text-2xl mb-5">Web Font</h2>
@@ -301,32 +312,60 @@ export const Interface = (props: InterfaceProps) => {
 
       <div className="text-left mt-3 bg-slate-50 rounded p-4 pt-1 pb-8">
         <div className="mt-6 relative">
-          <div
-            className="relative opacity-40"
-            style={{
-              fontFamily: `fallback for ${fontName}`,
-              fontSize: `${fontSize}px`,
-              lineHeight: `${lineHeight}px`,
-              fontWeight: fontWeight,
-              letterSpacing: `${letterSpacing}px`,
-              wordSpacing: `${wordSpacing}px`,
-            }}
-          >
-            {sampleText}
-          </div>
-          <div
-            className="absolute top-0"
-            style={{
-              fontFamily: fontName,
-              fontSize: `${fontSize}px`,
-              lineHeight: `${lineHeight}px`,
-              fontWeight: fontWeight,
-              letterSpacing: `${letterSpacing}px`,
-              wordSpacing: `${wordSpacing}px`,
-            }}
-          >
-            {sampleText}
-          </div>
+          {!isInEditMode && (
+            <>
+              <div
+                className="relative opacity-40"
+                style={{
+                  fontFamily: `fallback for ${fontName}`,
+                  fontSize: `${fontSize}px`,
+                  lineHeight: `${lineHeight}px`,
+                  fontWeight: fontWeight,
+                  letterSpacing: `${letterSpacing}px`,
+                  wordSpacing: `${wordSpacing}px`,
+                }}
+              >
+                {sampleText}
+              </div>
+              <div
+                className="absolute top-0"
+                onClick={() => setIsInEditMode(true)}
+                style={{
+                  fontFamily: fontName,
+                  fontSize: `${fontSize}px`,
+                  lineHeight: `${lineHeight}px`,
+                  fontWeight: fontWeight,
+                  letterSpacing: `${letterSpacing}px`,
+                  wordSpacing: `${wordSpacing}px`,
+                }}
+              >
+                {sampleText}
+              </div>
+            </>
+          )}
+          {isInEditMode && (
+            <div
+              className="relative"
+              style={{
+                fontSize: 0,
+              }}
+            >
+              <textarea
+                ref={ref}
+                style={{
+                  fontFamily: `${fontName}`,
+                  fontSize: `${fontSize}px`,
+                  lineHeight: `${lineHeight}px`,
+                  fontWeight: fontWeight,
+                  letterSpacing: `${letterSpacing}px`,
+                  wordSpacing: `${wordSpacing}px`,
+                }}
+                className="w-full focus:outline-none resize-none bg-slate-50"
+                onChange={handleTextareaType}
+                value={sampleText}
+              />
+            </div>
+          )}
         </div>
       </div>
     </>
