@@ -13,7 +13,7 @@ type InterfaceProps = {
 const DEFAULT_GOOGLE_FONT = "Lato";
 const DEFAULT_STANDARD_FONT = "Arial";
 const DEFAULT_FONT_SIZE = 22;
-const DEFAULT_LINE_HEIGHT = 28;
+const DEFAULT_LINE_HEIGHT = 1.4;
 const DEFAULT_FONT_WEIGHT = "normal";
 const DEFAULT_LETTER_SPACING = 0;
 const DEFAULT_WORD_SPACING = 0;
@@ -142,7 +142,7 @@ export const Interface = (props: InterfaceProps) => {
                 className={INPUT_CLASSES}
                 type="number"
                 defaultValue={DEFAULT_FONT_SIZE}
-                onChange={(e) => setFontSize(parseInt(e.target.value))}
+                onChange={(e) => setFontSize(parseFloat(e.target.value))}
                 pattern={NUMBERS_PATTERN}
               />
             </div>
@@ -151,7 +151,7 @@ export const Interface = (props: InterfaceProps) => {
           <div className="flex items-center mb-6">
             <div className="w-2/4">
               <label className="block font-bold text-left mb-1 pr-4">
-                Line Height (px):
+                Line Height (em):
               </label>
             </div>
             <div className="w-2/4">
@@ -159,7 +159,7 @@ export const Interface = (props: InterfaceProps) => {
                 className={INPUT_CLASSES}
                 type="number"
                 defaultValue={DEFAULT_LINE_HEIGHT}
-                onChange={(e) => setLineHeight(parseInt(e.target.value))}
+                onChange={(e) => setLineHeight(parseFloat(e.target.value))}
                 pattern={NUMBERS_PATTERN}
               />
             </div>
@@ -191,7 +191,7 @@ export const Interface = (props: InterfaceProps) => {
                 className={INPUT_CLASSES}
                 type="number"
                 defaultValue={DEFAULT_LETTER_SPACING}
-                onChange={(e) => setLetterSpacing(parseInt(e.target.value))}
+                onChange={(e) => setLetterSpacing(parseFloat(e.target.value))}
                 pattern={NUMBERS_PATTERN}
               />
             </div>
@@ -208,7 +208,7 @@ export const Interface = (props: InterfaceProps) => {
                 className={INPUT_CLASSES}
                 type="number"
                 defaultValue={DEFAULT_WORD_SPACING}
-                onChange={(e) => setWordSpacing(parseInt(e.target.value))}
+                onChange={(e) => setWordSpacing(parseFloat(e.target.value))}
                 pattern={NUMBERS_PATTERN}
               />
             </div>
@@ -264,7 +264,7 @@ export const Interface = (props: InterfaceProps) => {
                 className={INPUT_CLASSES}
                 type="number"
                 defaultValue={DEFAULT_ASCENT_OVERRIDE}
-                onChange={(e) => setAscentOverride(parseInt(e.target.value))}
+                onChange={(e) => setAscentOverride(parseFloat(e.target.value))}
                 pattern={NUMBERS_PATTERN}
               />
             </div>
@@ -281,7 +281,7 @@ export const Interface = (props: InterfaceProps) => {
                 className={INPUT_CLASSES}
                 type="number"
                 defaultValue={DEFAULT_DESCENT_OVERRIDE}
-                onChange={(e) => setDescentOverride(parseInt(e.target.value))}
+                onChange={(e) => setDescentOverride(parseFloat(e.target.value))}
                 pattern={NUMBERS_PATTERN}
               />
             </div>
@@ -298,7 +298,7 @@ export const Interface = (props: InterfaceProps) => {
                 className={INPUT_CLASSES}
                 type="number"
                 defaultValue={DEFAULT_LINE_GAP_OVERRIDE}
-                onChange={(e) => setLineGapOverride(parseInt(e.target.value))}
+                onChange={(e) => setLineGapOverride(parseFloat(e.target.value))}
                 pattern={NUMBERS_PATTERN}
               />
             </div>
@@ -319,7 +319,7 @@ export const Interface = (props: InterfaceProps) => {
                 style={{
                   fontFamily: `fallback for ${fontName}`,
                   fontSize: `${fontSize}px`,
-                  lineHeight: `${lineHeight}px`,
+                  lineHeight: `${lineHeight}em`,
                   fontWeight: fontWeight,
                   letterSpacing: `${letterSpacing}px`,
                   wordSpacing: `${wordSpacing}px`,
@@ -333,7 +333,7 @@ export const Interface = (props: InterfaceProps) => {
                 style={{
                   fontFamily: fontName,
                   fontSize: `${fontSize}px`,
-                  lineHeight: `${lineHeight}px`,
+                  lineHeight: `${lineHeight}em`,
                   fontWeight: fontWeight,
                   letterSpacing: `${letterSpacing}px`,
                   wordSpacing: `${wordSpacing}px`,
@@ -355,7 +355,7 @@ export const Interface = (props: InterfaceProps) => {
                 style={{
                   fontFamily: `${fontName}`,
                   fontSize: `${fontSize}px`,
-                  lineHeight: `${lineHeight}px`,
+                  lineHeight: `${lineHeight}em`,
                   fontWeight: fontWeight,
                   letterSpacing: `${letterSpacing}px`,
                   wordSpacing: `${wordSpacing}px`,
