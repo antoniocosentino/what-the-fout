@@ -433,20 +433,28 @@ export const Interface = (props: InterfaceProps) => {
       </div>
 
       <div className="flex flex-row justify-between gap-4">
-        <div className="bg-slate-50 basis-1/2 p-6 rounded shadow-lg text-left font-mono text-sm">
-          <pre>
+        <div className="bg-slate-50 basis-1/2 p-6 rounded shadow-lg text-left font-mono text-sm relative">
+          <div className="absolute top-4 right-4">
+            <p className="font-sans text-xs text-slate-400">
+              FONT FACE DECLARATION
+            </p>
+          </div>
+          <pre className="mt-6">
             <code
               dangerouslySetInnerHTML={{
-                __html: `@font-face {<br />&nbsp;&nbsp;font-family: &quot;fallback for ${fontName}&quot;;<br />&nbsp;&nbsp;src: local(${fallbackFontName});<br />&nbsp;&nbsp;size-adjust: ${sizeAdjust}%;<br />&nbsp;&nbsp;ascent-override: ${ascentOverride}%;<br />&nbsp;&nbsp;descent-override: ${descentOverride}%;<br />&nbsp;&nbsp;line-gap-override: ${lineGapOverride}%;<br />}`,
+                __html: `@font-face {<br />&nbsp;&nbsp;font-family: "fallback for ${fontName}";<br />&nbsp;&nbsp;src: local(${fallbackFontName});<br />&nbsp;&nbsp;size-adjust: ${sizeAdjust}%;<br />&nbsp;&nbsp;ascent-override: ${ascentOverride}%;<br />&nbsp;&nbsp;descent-override: ${descentOverride}%;<br />&nbsp;&nbsp;line-gap-override: ${lineGapOverride}%;<br />}`,
               }}
             />
           </pre>
         </div>
-        <div className="bg-slate-50 basis-1/2 p-6 rounded shadow-lg text-left font-mono text-sm">
-          <pre>
+        <div className="bg-slate-50 basis-1/2 p-6 rounded shadow-lg text-left font-mono text-sm relative">
+          <div className="absolute top-4 right-4">
+            <p className="font-sans text-xs text-slate-400">CUSTOM CSS</p>
+          </div>
+          <pre className="mt-6">
             <code
               dangerouslySetInnerHTML={{
-                __html: `body {<br />&nbsp;&nbsp;font-family: "fallback for ${fontName}";<br />&nbsp;&nbsp;font-size: ${fontSize}px;<br />&nbsp;&nbsp;line-height: ${lineHeight}em;<br />&nbsp;&nbsp;font-weight: ${fontWeight};<br />&nbsp;&nbsp;letter-spacing: ${
+                __html: `body {<br />&nbsp;&nbsp;font-family: "${fontName}", "fallback for ${fontName}";<br />&nbsp;&nbsp;font-size: ${fontSize}px;<br />&nbsp;&nbsp;line-height: ${lineHeight}em;<br />&nbsp;&nbsp;font-weight: ${fontWeight};<br />&nbsp;&nbsp;letter-spacing: ${
                   letterSpacing === 0 ? "0" : `${letterSpacing}px`
                 };<br />&nbsp;&nbsp;word-spacing: ${
                   wordSpacing === 0 ? "0" : `${wordSpacing}px`

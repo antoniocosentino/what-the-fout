@@ -41,6 +41,36 @@ export default async function Home() {
           googleFonts={googleFontResponse.items}
           standardFonts={standardFonts}
         />
+        <div className="mt-8 text-sm text-slate-600">
+          Made by&nbsp;
+          <a
+            className="border-b-2 border-slate-600 border-dotted"
+            target="_blank"
+            href="https://antoniocosentino.com"
+          >
+            Antonio Cosentino
+          </a>{" "}
+          &copy; 2023 · Built with Next.js & Tailwind CSS ·&nbsp;
+          <a
+            target="_blank"
+            href="https://github.com/antoniocosentino/what-the-fout"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              alt="Github"
+              className="w-3 h-3 inline-block bottom-0.5 relative"
+              src="/github.svg"
+            />
+          </a>
+          &nbsp;
+          <a
+            className="border-b-2 border-slate-600 border-dotted"
+            target="_blank"
+            href="https://github.com/antoniocosentino/what-the-fout"
+          >
+            Source Code
+          </a>
+        </div>
       </div>
     </main>
   );
