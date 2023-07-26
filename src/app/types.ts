@@ -14,3 +14,8 @@ export type GoogleFonts = ReadonlyArray<GoogleFont>;
 export type GoogleFontResponse = {
   items: GoogleFonts;
 };
+
+export type ComputedOpacity = {
+  finalFontOpacity: number;
+  fallbackFontOpacity: number;
+};

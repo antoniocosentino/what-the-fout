@@ -4,6 +4,8 @@ import { GoogleFonts, StandardFonts } from "../types";
 import { getDummyText } from "../utils/getDummyText";
 import { Helmet } from "react-helmet";
 import { useOutsideClick } from "../customHooks/useOutsideClick";
+import { FONT_WEIGHTS } from "../utils/fontWeights";
+import { getComputedOpacity } from "../utils/getComputedOpacity";
 
 type InterfaceProps = {
   googleFonts: GoogleFonts;
@@ -14,7 +16,7 @@ const DEFAULT_GOOGLE_FONT = "Lato";
 const DEFAULT_STANDARD_FONT = "Arial";
 const DEFAULT_FONT_SIZE = 22;
 const DEFAULT_LINE_HEIGHT = 1.4;
-const DEFAULT_FONT_WEIGHT = "normal";
+const DEFAULT_FONT_WEIGHT = 400;
 const DEFAULT_LETTER_SPACING = 0;
 const DEFAULT_WORD_SPACING = 0;
 const DEFAULT_SIZE_ADJUST = 98;
@@ -55,8 +57,16 @@ export const Interface = (props: InterfaceProps) => {
   );
 
   const [isInEditMode, setIsInEditMode] = useState(false);
-
   const [overlapBalance, setOverlapBalance] = useState(50);
+  const [useDifferentColor, setUseDifferentColor] = useState(true);
+
+  const iterableFontWeights = FONT_WEIGHTS.entries();
+  const fontWeightsArray = Array.from(iterableFontWeights);
+
+  console.log(
+    "🍌: Interface -> getComputedOpacity(overlapBalance).fallbackFontOpacity",
+    getComputedOpacity(overlapBalance)
+  );
 
   const handleTextareaType = (
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -87,7 +97,7 @@ export const Interface = (props: InterfaceProps) => {
         {/* eslint-disable-next-line @next/next/google-font-display, @next/next/no-page-custom-font */}
         <link
           rel="stylesheet"
-          href={`https://fonts.googleapis.com/css?family=${fontName}`}
+          href={`https://fonts.googleapis.com/css2?family=${fontName}:wght@${fontWeight}`}
         />
       </Helmet>
 
@@ -174,11 +184,19 @@ export const Interface = (props: InterfaceProps) => {
               </label>
             </div>
             <div className="w-2/4">
-              <input
+              <select
+                onChange={(e) => setFontWeight(parseInt(e.target.value))}
                 className={INPUT_CLASSES}
                 defaultValue={DEFAULT_FONT_WEIGHT}
-                onChange={(e) => setFontWeight(e.target.value)}
-              />
+              >
+                {fontWeightsArray.map((fontWeight) => {
+                  return (
+                    <option key={fontWeight[1]} value={fontWeight[1]}>
+                      {fontWeight[0]}
+                    </option>
+                  );
+                })}
+              </select>
             </div>
           </div>
 
@@ -305,18 +323,37 @@ export const Interface = (props: InterfaceProps) => {
               />
             </div>
           </div>
+
+          <div className="flex items-center mb-6">
+            <div className="w-2/4">
+              <label className="block font-bold text-left mb-1 pr-4">
+                Show with different color
+              </label>
+              <p className="text-xs text-left text-slate-600">
+                This is only affecting the preview
+              </p>
+            </div>
+            <div className="w-5">
+              <input
+                type="checkbox"
+                className="h-6 w-6"
+                defaultChecked={useDifferentColor}
+                onChange={(e) => setUseDifferentColor(!useDifferentColor)}
+              />
+            </div>
+          </div>
         </div>
       </div>
 
       <div className="text-left mt-8 flex justify-between">
         <div>
           <h2 className="font-medium text-2xl">Preview</h2>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-slate-600">
             Click on the preview area to edit the default text
           </p>
         </div>
         <div>
-          <p className="text-sm font-bold">Preview balance</p>
+          <p className="text-sm font-bold">Preview crossfader™</p>
           <input
             className="rounded-lg overflow-hidden appearance-none bg-gray-400 h-3 w-128"
             type="range"
@@ -330,11 +367,13 @@ export const Interface = (props: InterfaceProps) => {
       </div>
 
       <div className="text-left mt-3 bg-slate-50 rounded p-4 pt-1 pb-8">
-        <div className="mt-6 relative">
+        <div className="mt-6 relative overflow-hidden">
           {!isInEditMode && (
             <>
               <div
-                className="relative"
+                className={`relative ${
+                  useDifferentColor ? "text-sky-500" : ""
+                } `}
                 style={{
                   fontFamily: `fallback for ${fontName}`,
                   fontSize: `${fontSize}px`,
@@ -342,7 +381,9 @@ export const Interface = (props: InterfaceProps) => {
                   fontWeight: fontWeight,
                   letterSpacing: `${letterSpacing}px`,
                   wordSpacing: `${wordSpacing}px`,
-                  opacity: `${overlapBalance}%`,
+                  opacity: `${
+                    getComputedOpacity(overlapBalance).fallbackFontOpacity
+                  }%`,
                 }}
               >
                 {sampleText}
@@ -357,7 +398,9 @@ export const Interface = (props: InterfaceProps) => {
                   fontWeight: fontWeight,
                   letterSpacing: `${letterSpacing}px`,
                   wordSpacing: `${wordSpacing}px`,
-                  opacity: `${100 - overlapBalance}%`,
+                  opacity: `${
+                    getComputedOpacity(overlapBalance).finalFontOpacity
+                  }%`,
                 }}
               >
                 {sampleText}
