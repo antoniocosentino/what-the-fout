@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { GoogleFonts, StandardFonts } from "../types";
+import { CopyStates, GoogleFonts, StandardFonts } from "../types";
 import { getDummyText } from "../utils/getDummyText";
 import { Helmet } from "react-helmet";
 import { useOutsideClick } from "../customHooks/useOutsideClick";
@@ -60,6 +60,9 @@ export const Interface = (props: InterfaceProps) => {
   const [overlapBalance, setOverlapBalance] = useState(50);
   const [useDifferentColor, setUseDifferentColor] = useState(true);
 
+  const [leftCopyState, setLeftCopyState] = useState<CopyStates>("IDLE");
+  const [rightCopyState, setRightCopyState] = useState<CopyStates>("IDLE");
+
   const iterableFontWeights = FONT_WEIGHTS.entries();
   const fontWeightsArray = Array.from(iterableFontWeights);
 
@@ -75,6 +78,30 @@ export const Interface = (props: InterfaceProps) => {
       return;
     }
     setIsInEditMode(false);
+  };
+
+  const manageCodeCLick = (e: React.MouseEvent<HTMLElement>) => {
+    const element = e.target as HTMLTextAreaElement;
+
+    element.select();
+    element.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(element.value);
+
+    const whichCodeBox = element.dataset.copyBox;
+
+    if (whichCodeBox === "left") {
+      setLeftCopyState("COPIED");
+      setTimeout(() => {
+        setLeftCopyState("IDLE");
+      }, 4000);
+    }
+
+    if (whichCodeBox === "right") {
+      setRightCopyState("COPIED");
+      setTimeout(() => {
+        setRightCopyState("IDLE");
+      }, 4000);
+    }
   };
 
   const ref = useOutsideClick(handleClickOutside);
@@ -436,32 +463,52 @@ export const Interface = (props: InterfaceProps) => {
         <div className="bg-slate-50 basis-1/2 p-6 rounded shadow-lg text-left font-mono text-sm relative">
           <div className="absolute top-4 right-4">
             <p className="font-sans text-xs text-slate-400">
-              FONT FACE DECLARATION
+              {leftCopyState === "COPIED"
+                ? "Copied to clipboard!"
+                : "FONT FACE DECLARATION"}
             </p>
           </div>
-          <pre className="mt-6">
-            <code
-              dangerouslySetInnerHTML={{
-                __html: `@font-face {<br />&nbsp;&nbsp;font-family: "fallback for ${fontName}";<br />&nbsp;&nbsp;src: local(${fallbackFontName});<br />&nbsp;&nbsp;size-adjust: ${sizeAdjust}%;<br />&nbsp;&nbsp;ascent-override: ${ascentOverride}%;<br />&nbsp;&nbsp;descent-override: ${descentOverride}%;<br />&nbsp;&nbsp;line-gap-override: ${lineGapOverride}%;<br />}`,
-              }}
-            />
-          </pre>
+
+          <textarea
+            className="text-slate-600 bg-slate-50 w-full mt-8 resize-none outline-none"
+            rows={8}
+            data-copy-box="left"
+            onClick={(e) => manageCodeCLick(e)}
+            readOnly={true}
+            value={`@font-face {
+  font-family: "fallback for ${fontName}";
+  src: local(${fallbackFontName});
+  size-adjust: ${sizeAdjust}%;
+  ascent-override: ${ascentOverride}%;
+  descent-override: ${descentOverride}%;
+  line-gap-override: ${lineGapOverride}%;
+}`}
+          />
         </div>
         <div className="bg-slate-50 basis-1/2 p-6 rounded shadow-lg text-left font-mono text-sm relative">
           <div className="absolute top-4 right-4">
-            <p className="font-sans text-xs text-slate-400">CUSTOM CSS</p>
+            <p className="font-sans text-xs text-slate-400">
+              {rightCopyState === "COPIED"
+                ? "Copied to clipboard!"
+                : "CUSTOM CSS"}
+            </p>
           </div>
-          <pre className="mt-6">
-            <code
-              dangerouslySetInnerHTML={{
-                __html: `body {<br />&nbsp;&nbsp;font-family: "${fontName}", "fallback for ${fontName}";<br />&nbsp;&nbsp;font-size: ${fontSize}px;<br />&nbsp;&nbsp;line-height: ${lineHeight}em;<br />&nbsp;&nbsp;font-weight: ${fontWeight};<br />&nbsp;&nbsp;letter-spacing: ${
-                  letterSpacing === 0 ? "0" : `${letterSpacing}px`
-                };<br />&nbsp;&nbsp;word-spacing: ${
-                  wordSpacing === 0 ? "0" : `${wordSpacing}px`
-                };<br />}`,
-              }}
-            />
-          </pre>
+
+          <textarea
+            className="text-slate-600 bg-slate-50 w-full mt-8 resize-none outline-none"
+            rows={8}
+            data-copy-box="right"
+            onClick={(e) => manageCodeCLick(e)}
+            readOnly={true}
+            value={`body {
+  font-family: "${fontName}", "fallback for ${fontName}";
+  font-size: ${fontSize}px;
+  line-height: ${lineHeight}em;
+  font-weight: ${fontWeight};
+  letter-spacing: ${letterSpacing === 0 ? "0" : `${letterSpacing}px`};
+  word-spacing: ${wordSpacing === 0 ? "0" : `${wordSpacing}px`}
+}`}
+          />
         </div>
       </div>
     </>

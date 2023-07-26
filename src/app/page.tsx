@@ -59,7 +59,7 @@ export default async function Home() {
             <img
               alt="Github"
               className="w-3 h-3 inline-block bottom-0.5 relative"
-              src="/github.svg"
+              src="https://antoniocosentino.github.io/what-the-fout/github.svg"
             />
           </a>
           &nbsp;

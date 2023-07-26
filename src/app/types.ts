@@ -19,3 +19,5 @@ export type ComputedOpacity = {
   finalFontOpacity: number;
   fallbackFontOpacity: number;
 };
+
+export type CopyStates = "IDLE" | "COPIED";
