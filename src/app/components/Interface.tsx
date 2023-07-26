@@ -366,7 +366,7 @@ export const Interface = (props: InterfaceProps) => {
         </div>
       </div>
 
-      <div className="text-left mt-3 bg-slate-50 rounded p-4 pt-1 pb-8">
+      <div className="text-left mt-3 bg-slate-50 rounded p-4 pt-1 pb-8 shadow-lg">
         <div className="mt-6 relative overflow-hidden">
           {!isInEditMode && (
             <>
@@ -430,6 +430,35 @@ export const Interface = (props: InterfaceProps) => {
               />
             </div>
           )}
+        </div>
+      </div>
+
+      <div className="text-left mt-8 mb-2">
+        <h2 className="font-medium text-2xl">Your CSS snippets</h2>
+      </div>
+
+      <div className="flex flex-row justify-between gap-4">
+        <div className="bg-slate-50 basis-1/2 p-6 rounded shadow-lg text-left font-mono text-sm">
+          <pre>
+            <code
+              dangerouslySetInnerHTML={{
+                __html: `@font-face {<br />&nbsp;&nbsp;font-family: &quot;fallback for ${fontName}&quot;;<br />&nbsp;&nbsp;src: local(${fallbackFontName});<br />&nbsp;&nbsp;size-adjust: ${sizeAdjust}%;<br />&nbsp;&nbsp;ascent-override: ${ascentOverride}%;<br />&nbsp;&nbsp;descent-override: ${descentOverride}%;<br />&nbsp;&nbsp;line-gap-override: ${lineGapOverride}%;<br />}`,
+              }}
+            />
+          </pre>
+        </div>
+        <div className="bg-slate-50 basis-1/2 p-6 rounded shadow-lg text-left font-mono text-sm">
+          <pre>
+            <code
+              dangerouslySetInnerHTML={{
+                __html: `body {<br />&nbsp;&nbsp;font-family: "fallback for ${fontName}";<br />&nbsp;&nbsp;font-size: ${fontSize}px;<br />&nbsp;&nbsp;line-height: ${lineHeight}em;<br />&nbsp;&nbsp;font-weight: ${fontWeight};<br />&nbsp;&nbsp;letter-spacing: ${
+                  letterSpacing === 0 ? "0" : `${letterSpacing}px`
+                };<br />&nbsp;&nbsp;word-spacing: ${
+                  wordSpacing === 0 ? "0" : `${wordSpacing}px`
+                };<br />}`,
+              }}
+            />
+          </pre>
         </div>
       </div>
     </>
