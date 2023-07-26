@@ -63,11 +63,6 @@ export const Interface = (props: InterfaceProps) => {
   const iterableFontWeights = FONT_WEIGHTS.entries();
   const fontWeightsArray = Array.from(iterableFontWeights);
 
-  console.log(
-    "🍌: Interface -> getComputedOpacity(overlapBalance).fallbackFontOpacity",
-    getComputedOpacity(overlapBalance)
-  );
-
   const handleTextareaType = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
