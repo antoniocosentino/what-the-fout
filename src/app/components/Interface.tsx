@@ -370,9 +370,7 @@ export const Interface = (props: InterfaceProps) => {
       <div className="text-left mt-8 flex justify-between">
         <div>
           <h2 className="font-medium text-2xl">Preview</h2>
-          <p className="text-xs text-slate-600">
-            Click on the preview area to edit the default text
-          </p>
+          <p className="text-xs text-slate-600">Click on the text to edit</p>
         </div>
         <div>
           <p className="text-sm font-bold">Preview crossfader™</p>
@@ -462,7 +460,7 @@ export const Interface = (props: InterfaceProps) => {
         </p>
       </div>
 
-      <div className="md:flex flex-row justify-between gap-4 sm:block">
+      <div className="md:flex mt-3 flex-row justify-between gap-4 sm:block">
         <div className="bg-slate-50 basis-1/2 p-6 rounded shadow-lg text-left font-mono text-sm relative">
           <div className="absolute top-4 right-4">
             <p className="font-sans text-xs text-slate-400">
