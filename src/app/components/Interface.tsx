@@ -139,7 +139,7 @@ export const Interface = (props: InterfaceProps) => {
           },
         ]}
       />
-      <div className="flex flex-row justify-between gap-4">
+      <div className="md:flex flex-row justify-between gap-4 sm:block">
         <div className="bg-slate-50 basis-1/2 p-6 rounded shadow-lg">
           <h2 className="font-medium text-2xl mb-5">Web Font</h2>
 
@@ -257,7 +257,7 @@ export const Interface = (props: InterfaceProps) => {
           </div>
         </div>
 
-        <div className="bg-slate-50 basis-1/2 p-4 rounded shadow-lg">
+        <div className="bg-slate-50 basis-1/2 p-4 rounded shadow-lg mt-8 md:mt-0">
           <h2 className="font-medium text-2xl mb-5">Fallback font</h2>
 
           <div className="flex items-center mb-6">
@@ -457,9 +457,12 @@ export const Interface = (props: InterfaceProps) => {
 
       <div className="text-left mt-8 mb-2">
         <h2 className="font-medium text-2xl">Your CSS snippets</h2>
+        <p className="text-xs text-slate-600">
+          Click on the code to copy it to your clipboard
+        </p>
       </div>
 
-      <div className="flex flex-row justify-between gap-4">
+      <div className="md:flex flex-row justify-between gap-4 sm:block">
         <div className="bg-slate-50 basis-1/2 p-6 rounded shadow-lg text-left font-mono text-sm relative">
           <div className="absolute top-4 right-4">
             <p className="font-sans text-xs text-slate-400">
@@ -470,7 +473,7 @@ export const Interface = (props: InterfaceProps) => {
           </div>
 
           <textarea
-            className="text-slate-600 bg-slate-50 w-full mt-8 resize-none outline-none"
+            className="text-slate-600 bg-slate-50 w-full mt-8 resize-none outline-none cursor-pointer"
             rows={8}
             data-copy-box="left"
             onClick={(e) => manageCodeCLick(e)}
@@ -485,7 +488,7 @@ export const Interface = (props: InterfaceProps) => {
 }`}
           />
         </div>
-        <div className="bg-slate-50 basis-1/2 p-6 rounded shadow-lg text-left font-mono text-sm relative">
+        <div className="bg-slate-50 basis-1/2 p-6 rounded shadow-lg text-left font-mono text-sm relative mt-8 md:mt-0">
           <div className="absolute top-4 right-4">
             <p className="font-sans text-xs text-slate-400">
               {rightCopyState === "COPIED"
@@ -495,7 +498,7 @@ export const Interface = (props: InterfaceProps) => {
           </div>
 
           <textarea
-            className="text-slate-600 bg-slate-50 w-full mt-8 resize-none outline-none"
+            className="text-slate-600 bg-slate-50 w-full mt-8 resize-none outline-none cursor-pointer"
             rows={8}
             data-copy-box="right"
             onClick={(e) => manageCodeCLick(e)}
@@ -506,7 +509,7 @@ export const Interface = (props: InterfaceProps) => {
   line-height: ${lineHeight}em;
   font-weight: ${fontWeight};
   letter-spacing: ${letterSpacing === 0 ? "0" : `${letterSpacing}px`};
-  word-spacing: ${wordSpacing === 0 ? "0" : `${wordSpacing}px`}
+  word-spacing: ${wordSpacing === 0 ? "0" : `${wordSpacing}px`};
 }`}
           />
         </div>

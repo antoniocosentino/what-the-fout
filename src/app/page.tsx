@@ -20,8 +20,8 @@ export default async function Home() {
   const googleFontResponse = await getGoogleFonts();
 
   return (
-    <main className="min-h-screen p-12 flex flex-column justify-center">
-      <div className="z-10 w-full max-w-5xl text-center">
+    <main className="min-h-screen p-6 md:p-12 flex flex-column justify-center">
+      <div className="z-10 w-full max-w-none md:max-w-5xl text-center">
         <h1 className="font-medium text-5xl">What the FOUT!</h1>
         <p className="my-8 text-left">
           A CSS playground for F-mods (font metric overrides). This tool will
@@ -41,7 +41,7 @@ export default async function Home() {
           googleFonts={googleFontResponse.items}
           standardFonts={standardFonts}
         />
-        <div className="mt-8 text-sm text-slate-600">
+        <div className="mt-8 text-sm text-slate-600 text-left md:text-center leading-6">
           Made by&nbsp;
           <a
             className="border-b-2 border-slate-600 border-dotted"
@@ -50,7 +50,11 @@ export default async function Home() {
           >
             Antonio Cosentino
           </a>{" "}
-          &copy; 2023 · Built with Next.js & Tailwind CSS ·&nbsp;
+          &copy; 2023 ·<br className="md:hidden" />
+          <span className="hidden md:inline-block">&nbsp;</span>
+          Built with Next.js & Tailwind CSS ·
+          <br className="md:hidden" />
+          <span className="hidden md:inline-block">&nbsp;</span>
           <a
             target="_blank"
             href="https://github.com/antoniocosentino/what-the-fout"
