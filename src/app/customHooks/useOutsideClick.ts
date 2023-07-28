@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
 
 export const useOutsideClick = (callback: () => void) => {
-  const ref = useRef<HTMLTextAreaElement>(null);
+  // TODO: I'm using any here, but ideally I should find a way to pass the type dynamically
+  const ref = useRef<any>(null);
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {

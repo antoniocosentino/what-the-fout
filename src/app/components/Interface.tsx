@@ -72,12 +72,30 @@ export const Interface = (props: InterfaceProps) => {
     setSampleText(event.target.value);
   };
 
-  const handleClickOutside = () => {
+  const manageSelectFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    const element = event.target as HTMLInputElement;
+    element.value = "";
+  };
+
+  const handleClickOutsideTextarea = () => {
     if (sampleText === "") {
       setSampleText(getDummyText());
       return;
     }
     setIsInEditMode(false);
+  };
+
+  const handleClickOutsideDropdown = () => {
+    console.log("what up biiitch");
+
+    const element = document.querySelector(
+      "#google-fonts-input"
+    ) as HTMLInputElement;
+    const value = element?.value;
+
+    if (!value) {
+      element.value = fontName;
+    }
   };
 
   const manageCodeCLick = (e: React.MouseEvent<HTMLElement>) => {
@@ -104,14 +122,16 @@ export const Interface = (props: InterfaceProps) => {
     }
   };
 
-  const ref = useOutsideClick(handleClickOutside);
+  const sampleTextRef = useOutsideClick(handleClickOutsideTextarea);
 
   // putting the cursor in the textarea when clicking
   useEffect(() => {
     if (isInEditMode) {
-      ref.current?.focus();
+      sampleTextRef.current?.focus();
     }
-  }, [isInEditMode, ref]);
+  }, [isInEditMode, sampleTextRef]);
+
+  const fontsSelectRef = useOutsideClick(handleClickOutsideDropdown);
 
   return (
     <>
@@ -153,9 +173,12 @@ export const Interface = (props: InterfaceProps) => {
               <input
                 className={INPUT_CLASSES}
                 type="text"
+                ref={fontsSelectRef}
+                id="google-fonts-input"
                 list="google-fonts"
                 defaultValue={DEFAULT_GOOGLE_FONT}
                 onChange={(e) => setFontName(e.target.value)}
+                onFocus={(e) => manageSelectFocus(e)}
               />
               <datalist id="google-fonts">
                 {googleFonts?.map((font) => {
@@ -435,7 +458,7 @@ export const Interface = (props: InterfaceProps) => {
               }}
             >
               <textarea
-                ref={ref}
+                ref={sampleTextRef}
                 style={{
                   fontFamily: `${fontName}`,
                   fontSize: `${fontSize}px`,

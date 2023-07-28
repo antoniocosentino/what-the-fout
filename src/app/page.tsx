@@ -22,7 +22,7 @@ export default async function Home() {
   return (
     <main className="min-h-screen p-6 md:p-12 flex flex-column justify-center">
       <div className="z-10 w-full max-w-none md:max-w-5xl text-center">
-        <h1 className="font-medium text-5xl">What the FOUT!</h1>
+        <h1 className="font-medium text-5xl">What the FOUT! 🤌</h1>
         <p className="my-8 text-left">
           A CSS playground for F-mods (font metric overrides). This tool will
           help you find the right fallback for your font and tweak it in order
