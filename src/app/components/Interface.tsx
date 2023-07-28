@@ -86,8 +86,6 @@ export const Interface = (props: InterfaceProps) => {
   };
 
   const handleClickOutsideDropdown = () => {
-    console.log("what up biiitch");
-
     const element = document.querySelector(
       "#google-fonts-input"
     ) as HTMLInputElement;
