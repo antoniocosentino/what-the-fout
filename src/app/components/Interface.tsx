@@ -493,12 +493,13 @@ export const Interface = (props: InterfaceProps) => {
 
           <textarea
             className="text-slate-600 bg-slate-50 w-full mt-8 resize-none outline-none cursor-pointer"
-            rows={8}
+            rows={9}
             data-copy-box="left"
             onClick={(e) => manageCodeCLick(e)}
             readOnly={true}
             value={`@font-face {
   font-family: "fallback for ${fontName}";
+  font-weight: ${fontWeight};
   src: local(${fallbackFontName});
   size-adjust: ${sizeAdjust}%;
   ascent-override: ${ascentOverride}%;
@@ -518,7 +519,7 @@ export const Interface = (props: InterfaceProps) => {
 
           <textarea
             className="text-slate-600 bg-slate-50 w-full mt-8 resize-none outline-none cursor-pointer"
-            rows={8}
+            rows={9}
             data-copy-box="right"
             onClick={(e) => manageCodeCLick(e)}
             readOnly={true}
