@@ -58,6 +58,10 @@ export default function RootLayout({
           property="og:image"
           content="https://antoniocosentino.github.io/what-the-fout/og-image.png"
         />
+        <meta
+          name="google-site-verification"
+          content="KJdxr19pO0dikbH0Ijt9-_HjKc4kZOwKYWtq5LXBhIk"
+        />
       </head>
       <body className={inter.className}>{children}</body>
     </html>
