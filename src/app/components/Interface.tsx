@@ -14,15 +14,15 @@ type InterfaceProps = {
 
 const DEFAULT_GOOGLE_FONT = "Lato";
 const DEFAULT_STANDARD_FONT = "Arial";
-const DEFAULT_FONT_SIZE = 22;
+const DEFAULT_FONT_SIZE = 25;
 const DEFAULT_LINE_HEIGHT = 1.4;
 const DEFAULT_FONT_WEIGHT = 400;
 const DEFAULT_LETTER_SPACING = 0;
 const DEFAULT_WORD_SPACING = 0;
 const DEFAULT_SIZE_ADJUST = 98;
-const DEFAULT_ASCENT_OVERRIDE = 192;
-const DEFAULT_DESCENT_OVERRIDE = 112;
-const DEFAULT_LINE_GAP_OVERRIDE = 100;
+const DEFAULT_ASCENT_OVERRIDE = 0;
+const DEFAULT_DESCENT_OVERRIDE = 10;
+const DEFAULT_LINE_GAP_OVERRIDE = 0;
 
 // this is used in order to allow commas (or dots) in the number input
 const NUMBERS_PATTERN = "([0-9]+.{0,1}[0-9]*,{0,1})*[0-9]";
@@ -131,6 +131,26 @@ export const Interface = (props: InterfaceProps) => {
 
   const fontsSelectRef = useOutsideClick(handleClickOutsideDropdown);
 
+  const overridesArr = [];
+
+  overridesArr.push(`font-family: "fallback for ${fontName}";`);
+  overridesArr.push(`src: local(${fallbackFontName});`);
+  overridesArr.push(`size-adjust: ${sizeAdjust}%;`);
+
+  if (ascentOverride > 0) {
+    overridesArr.push(`ascent-override: ${ascentOverride}%;`);
+  }
+
+  if (descentOverride > 0) {
+    overridesArr.push(`descent-override: ${descentOverride}%;`);
+  }
+
+  if (lineGapOverride > 0) {
+    overridesArr.push(`line-gap-override: ${lineGapOverride}%;`);
+  }
+
+  const overridesString = overridesArr.join("\n  ");
+
   return (
     <>
       <Helmet>
@@ -145,14 +165,9 @@ export const Interface = (props: InterfaceProps) => {
         style={[
           {
             cssText: `
-              @font-face {
-                font-family: "fallback for ${fontName}";
-                src: local(${fallbackFontName});
-                size-adjust: ${sizeAdjust}%;
-                ascent-override: ${ascentOverride}%;
-                descent-override: ${descentOverride}%;
-                line-gap-override: ${lineGapOverride}%;
-              }
+@font-face {
+  ${overridesString}
+}
             `,
           },
         ]}
@@ -196,6 +211,7 @@ export const Interface = (props: InterfaceProps) => {
               <input
                 className={INPUT_CLASSES}
                 type="number"
+                min="0"
                 defaultValue={DEFAULT_FONT_SIZE}
                 onChange={(e) => setFontSize(parseFloat(e.target.value))}
                 pattern={NUMBERS_PATTERN}
@@ -213,6 +229,7 @@ export const Interface = (props: InterfaceProps) => {
               <input
                 className={INPUT_CLASSES}
                 type="number"
+                min="0"
                 defaultValue={DEFAULT_LINE_HEIGHT}
                 onChange={(e) => setLineHeight(parseFloat(e.target.value))}
                 pattern={NUMBERS_PATTERN}
@@ -253,6 +270,7 @@ export const Interface = (props: InterfaceProps) => {
               <input
                 className={INPUT_CLASSES}
                 type="number"
+                min="0"
                 defaultValue={DEFAULT_LETTER_SPACING}
                 onChange={(e) => setLetterSpacing(parseFloat(e.target.value))}
                 pattern={NUMBERS_PATTERN}
@@ -270,6 +288,7 @@ export const Interface = (props: InterfaceProps) => {
               <input
                 className={INPUT_CLASSES}
                 type="number"
+                min="0"
                 defaultValue={DEFAULT_WORD_SPACING}
                 onChange={(e) => setWordSpacing(parseFloat(e.target.value))}
                 pattern={NUMBERS_PATTERN}
@@ -309,6 +328,7 @@ export const Interface = (props: InterfaceProps) => {
               <input
                 className={INPUT_CLASSES}
                 type="number"
+                min="0"
                 defaultValue={DEFAULT_SIZE_ADJUST}
                 onChange={(e) => setSizeAdjust(parseFloat(e.target.value))}
                 pattern={NUMBERS_PATTERN}
@@ -321,11 +341,15 @@ export const Interface = (props: InterfaceProps) => {
               <label className="block font-bold text-left mb-1 pr-4">
                 Ascent Override (%):
               </label>
+              <p className="text-xs text-left text-slate-600">
+                Use 0 to disable it
+              </p>
             </div>
             <div className="w-2/4">
               <input
                 className={INPUT_CLASSES}
                 type="number"
+                min="0"
                 defaultValue={DEFAULT_ASCENT_OVERRIDE}
                 onChange={(e) => setAscentOverride(parseFloat(e.target.value))}
                 pattern={NUMBERS_PATTERN}
@@ -338,11 +362,15 @@ export const Interface = (props: InterfaceProps) => {
               <label className="block font-bold text-left mb-1 pr-4">
                 Descent Override (%):
               </label>
+              <p className="text-xs text-left text-slate-600">
+                Use 0 to disable it
+              </p>
             </div>
             <div className="w-2/4">
               <input
                 className={INPUT_CLASSES}
                 type="number"
+                min="0"
                 defaultValue={DEFAULT_DESCENT_OVERRIDE}
                 onChange={(e) => setDescentOverride(parseFloat(e.target.value))}
                 pattern={NUMBERS_PATTERN}
@@ -355,11 +383,15 @@ export const Interface = (props: InterfaceProps) => {
               <label className="block font-bold text-left mb-1 pr-4">
                 Line Gap override (%):
               </label>
+              <p className="text-xs text-left text-slate-600">
+                Use 0 to disable it
+              </p>
             </div>
             <div className="w-2/4">
               <input
                 className={INPUT_CLASSES}
                 type="number"
+                min="0"
                 defaultValue={DEFAULT_LINE_GAP_OVERRIDE}
                 onChange={(e) => setLineGapOverride(parseFloat(e.target.value))}
                 pattern={NUMBERS_PATTERN}
@@ -498,13 +530,7 @@ export const Interface = (props: InterfaceProps) => {
             onClick={(e) => manageCodeCLick(e)}
             readOnly={true}
             value={`@font-face {
-  font-family: "fallback for ${fontName}";
-  font-weight: ${fontWeight};
-  src: local(${fallbackFontName});
-  size-adjust: ${sizeAdjust}%;
-  ascent-override: ${ascentOverride}%;
-  descent-override: ${descentOverride}%;
-  line-gap-override: ${lineGapOverride}%;
+  ${overridesString}
 }`}
           />
         </div>

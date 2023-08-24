@@ -7,7 +7,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "What the FOUT!",
-  description: "A CSS playground for F-mods",
+  description:
+    "A CSS playground for size-adjust and F-mods (Font Metric Overrides)",
 };
 
 export default function RootLayout({

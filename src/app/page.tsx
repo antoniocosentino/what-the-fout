@@ -24,10 +24,10 @@ export default async function Home() {
       <div className="z-10 w-full max-w-none md:max-w-5xl text-center">
         <h1 className="font-medium text-5xl">What the FOUT! 🤌</h1>
         <p className="my-8 text-left">
-          A CSS playground for F-mods (font metric overrides). This tool will
-          help you find the right fallback for your font and tweak it in order
-          to get the best possible results. If you want to know more about the
-          problem and the proposed solution, check out{" "}
+          A CSS playground for <code>size-adjust</code> and F-mods (font metric
+          overrides). It will help you find the right fallback for your font and
+          tweak it in order to get the best possible results. If you want to
+          know more about the problem and the proposed solution, check out{" "}
           <a
             className="underline text-sky-500 hover:text-sky-700 transition-colors"
             target="_blank"
