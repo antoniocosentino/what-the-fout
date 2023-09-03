@@ -6,8 +6,6 @@ A CSS playground for `size-adjust` and F-mods (font metric overrides). This tool
 
 ![WTF demo](/public/demo.gif)
 
-The tool was inspired by [this article](https://developer.chrome.com/blog/font-fallbacks/) on improved font fallbacks.
-
 ## Features
 
 - Works with all Google Fonts

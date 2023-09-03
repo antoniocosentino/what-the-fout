@@ -31,7 +31,7 @@ export default async function Home() {
           <a
             className="underline text-sky-500 hover:text-sky-700 transition-colors"
             target="_blank"
-            href="https://developer.chrome.com/blog/font-fallbacks/"
+            href="https://javascript.plainenglish.io/font-fallbacks-with-almost-no-headache-758fef3f4c32"
           >
             this article
           </a>
